@@ -39,7 +39,7 @@ namespace InstallationsTrackerForms
       this.fromFileRb = new System.Windows.Forms.RadioButton();
       this.platformsCob = new System.Windows.Forms.ComboBox();
       this.label1 = new System.Windows.Forms.Label();
-      this.productNameGUIDRb = new System.Windows.Forms.RadioButton();
+      this.productGUIDRb = new System.Windows.Forms.RadioButton();
       this.productNamePartRb = new System.Windows.Forms.RadioButton();
       this.productGUIDTxt = new System.Windows.Forms.TextBox();
       this.forceRomovalBtn = new System.Windows.Forms.Button();
@@ -63,7 +63,7 @@ namespace InstallationsTrackerForms
       this.packagesGridView.Location = new System.Drawing.Point(12, 245);
       this.packagesGridView.Name = "packagesGridView";
       this.packagesGridView.RowTemplate.Height = 25;
-      this.packagesGridView.Size = new System.Drawing.Size(915, 218);
+      this.packagesGridView.Size = new System.Drawing.Size(1085, 218);
       this.packagesGridView.TabIndex = 2;
       // 
       // findBtn
@@ -94,7 +94,7 @@ namespace InstallationsTrackerForms
       this.groupBox1.Controls.Add(this.fromFileRb);
       this.groupBox1.Controls.Add(this.platformsCob);
       this.groupBox1.Controls.Add(this.label1);
-      this.groupBox1.Controls.Add(this.productNameGUIDRb);
+      this.groupBox1.Controls.Add(this.productGUIDRb);
       this.groupBox1.Controls.Add(this.productNamePartRb);
       this.groupBox1.Controls.Add(this.productGUIDTxt);
       this.groupBox1.Controls.Add(this.findBtn);
@@ -152,15 +152,15 @@ namespace InstallationsTrackerForms
       this.label1.TabIndex = 6;
       this.label1.Text = "Platform:";
       // 
-      // productNameGUIDRb
+      // productGUIDRb
       // 
-      this.productNameGUIDRb.AutoSize = true;
-      this.productNameGUIDRb.Location = new System.Drawing.Point(25, 84);
-      this.productNameGUIDRb.Name = "productNameGUIDRb";
-      this.productNameGUIDRb.Size = new System.Drawing.Size(100, 19);
-      this.productNameGUIDRb.TabIndex = 5;
-      this.productNameGUIDRb.Text = "Product GUID:";
-      this.productNameGUIDRb.UseVisualStyleBackColor = true;
+      this.productGUIDRb.AutoSize = true;
+      this.productGUIDRb.Location = new System.Drawing.Point(25, 84);
+      this.productGUIDRb.Name = "productGUIDRb";
+      this.productGUIDRb.Size = new System.Drawing.Size(100, 19);
+      this.productGUIDRb.TabIndex = 5;
+      this.productGUIDRb.Text = "Product GUID:";
+      this.productGUIDRb.UseVisualStyleBackColor = true;
       // 
       // productNamePartRb
       // 
@@ -197,7 +197,7 @@ namespace InstallationsTrackerForms
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(940, 537);
+      this.ClientSize = new System.Drawing.Size(1110, 537);
       this.Controls.Add(this.forceRomovalBtn);
       this.Controls.Add(this.groupBox1);
       this.Controls.Add(this.uninstallBtn);
@@ -219,7 +219,7 @@ namespace InstallationsTrackerForms
     private System.Windows.Forms.Button uninstallBtn;
     private System.Windows.Forms.GroupBox groupBox1;
     private System.Windows.Forms.TextBox productGUIDTxt;
-    private System.Windows.Forms.RadioButton productNameGUIDRb;
+    private System.Windows.Forms.RadioButton productGUIDRb;
     private System.Windows.Forms.RadioButton productNamePartRb;
     private System.Windows.Forms.ComboBox platformsCob;
     private System.Windows.Forms.Label label1;

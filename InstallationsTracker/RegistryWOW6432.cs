@@ -32,16 +32,14 @@ namespace InstallationsTracker
 
       if (platform == Platform.x86 || platform == Platform.x64_x86)
       {
-        var msi = SearchInKey(appNamePart, Platform.x86);
-        if (msi != null)
-          appModel.MSIPackages.Add(msi);
+        var app = SearchInKey(appNamePart, Platform.x86);
+        appModel.MSIPackages.AddRange(app.MSIPackages);
       }
 
       if (platform == Platform.x64 || platform == Platform.x64_x86)
       {
-        var msi = SearchInKey(appNamePart, Platform.x64);
-        if (msi != null)
-          appModel.MSIPackages.Add(msi);
+        var app = SearchInKey(appNamePart, Platform.x64);
+        appModel.MSIPackages.AddRange(app.MSIPackages);
       }
 
       return appModel;
@@ -108,8 +106,9 @@ namespace InstallationsTracker
       return "{" + productCode.ToString().ToUpper() + "}";
     }
 
-    private static MSIPackage SearchInKey(string appNamePart, Platform platform)
+    private static AppModel SearchInKey(string appNamePart, Platform platform)
     {
+      var app = new AppModel();
       string registryKey = platform == Platform.x64 ? RegistryKeyX64 : RegistryKeyX86;
       MSIPackage msi = null;
       var key = Registry.LocalMachine.OpenSubKey(registryKey);
@@ -123,8 +122,8 @@ namespace InstallationsTracker
             var displayName = subkey.GetValue("DisplayName") as string;
             if (displayName != null && displayName.Contains(appNamePart, StringComparison.InvariantCultureIgnoreCase))
             {
-              msi = CreateMSI(subkey, platform);
-              break;
+              app.MSIPackages.Add(CreateMSI(subkey, platform));
+              
             }
           }
         }
@@ -139,7 +138,7 @@ namespace InstallationsTracker
         }
       }
 
-      return msi;
+      return app;
     }
 
     internal static bool forceUninstall(MSIPackage msi)
@@ -191,6 +190,7 @@ namespace InstallationsTracker
       msi.Platform = platform;
       msi.Version = subkey.GetValue("DisplayVersion") as string;
       msi.Publisher = subkey.GetValue("Publisher") as string;
+      msi.RegistryKey = subkey.Name;
       return msi;
     }
 

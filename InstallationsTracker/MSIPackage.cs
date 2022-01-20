@@ -23,5 +23,6 @@ namespace InstallationsTracker
 
     public string GetUninstallString() { return uninstallString; }
 
+    public string RegistryKey { get; set; }
   }
 }

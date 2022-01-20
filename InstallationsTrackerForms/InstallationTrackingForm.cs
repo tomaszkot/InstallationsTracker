@@ -29,12 +29,10 @@ namespace InstallationsTrackerForms
       this.packagesGridView.DataSource = null;
       var tracker = new Tracker();
       AppModel app = null;
-      if (productNameGUIDRb.Checked)
-      {
-        app = tracker.findByProductCode(Guid.Parse(productGUIDTxt.Text), SelectedPlatform);
-      }
-      else if (productNameGUIDRb.Checked)
+      if (this.productNamePartRb.Checked)
         app = tracker.findByProductName(appNamePartTxt.Text, SelectedPlatform);
+      else if (productGUIDRb.Checked)
+        app = tracker.findByProductCode(Guid.Parse(productGUIDTxt.Text), SelectedPlatform);
       else
       {
         app = findByProductCodes();
