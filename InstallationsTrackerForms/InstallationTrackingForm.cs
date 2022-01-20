@@ -115,16 +115,16 @@ namespace InstallationsTrackerForms
       }
     }
 
-    Platform SelectedPlatform
+    RegistryPlatform SelectedPlatform
     {
-      get { return (Platform)Enum.Parse(typeof(Platform), platformsCob.SelectedItem.ToString()); }
+      get { return (RegistryPlatform)Enum.Parse(typeof(RegistryPlatform), platformsCob.SelectedItem.ToString()); }
     }
 
     private void InstallationTrackingForm_Load(object sender, EventArgs e)
     {
-      var pfs = Enum.GetValues(typeof(Platform)).Cast<Platform>().ToList();
+      var pfs = Enum.GetValues(typeof(RegistryPlatform)).Cast<RegistryPlatform>().ToList();
       platformsCob.DataSource = pfs;
-      platformsCob.SelectedItem = Platform.x64_x86;
+      platformsCob.SelectedItem = RegistryPlatform.WOW64_WOW32;
     }
   }
 }

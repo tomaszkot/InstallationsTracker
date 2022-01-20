@@ -128,10 +128,10 @@ namespace InstallationsTrackerForms
       this.fromFileRb.AutoSize = true;
       this.fromFileRb.Location = new System.Drawing.Point(25, 131);
       this.fromFileRb.Name = "fromFileRb";
-      this.fromFileRb.Size = new System.Drawing.Size(77, 19);
+      this.fromFileRb.Size = new System.Drawing.Size(108, 19);
       this.fromFileRb.TabIndex = 8;
       this.fromFileRb.TabStop = true;
-      this.fromFileRb.Text = "From File:";
+      this.fromFileRb.Text = "GUIDs from file:";
       this.fromFileRb.UseVisualStyleBackColor = true;
       // 
       // platformsCob
@@ -148,9 +148,9 @@ namespace InstallationsTrackerForms
       this.label1.AutoSize = true;
       this.label1.Location = new System.Drawing.Point(25, 179);
       this.label1.Name = "label1";
-      this.label1.Size = new System.Drawing.Size(56, 15);
+      this.label1.Size = new System.Drawing.Size(101, 15);
       this.label1.TabIndex = 6;
-      this.label1.Text = "Platform:";
+      this.label1.Text = "Registry Platform:";
       // 
       // productGUIDRb
       // 
@@ -185,7 +185,7 @@ namespace InstallationsTrackerForms
       // forceRomovalBtn
       // 
       this.forceRomovalBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-      this.forceRomovalBtn.Location = new System.Drawing.Point(105, 482);
+      this.forceRomovalBtn.Location = new System.Drawing.Point(105, 483);
       this.forceRomovalBtn.Name = "forceRomovalBtn";
       this.forceRomovalBtn.Size = new System.Drawing.Size(148, 23);
       this.forceRomovalBtn.TabIndex = 6;

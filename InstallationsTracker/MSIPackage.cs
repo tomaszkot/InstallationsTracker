@@ -16,7 +16,9 @@ namespace InstallationsTracker
 
     public string Publisher { get; set; }
 
-    public Platform Platform { get; set; }
+    public RegistryPlatform RegistryPlatform { get; set; }
+
+    //public RegistryPlatform GetRegistryPlatform() { return RegistryPlatform; }
     public string UninstallString { private get => uninstallString; set => uninstallString = value; }
 
     private string uninstallString;

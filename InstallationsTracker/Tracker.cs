@@ -10,16 +10,16 @@ namespace InstallationsTracker
 {
   public class Tracker
   {
-    public AppModel findByProductName(string appTitle, Platform platform = Platform.x64_x86)
+    public AppModel findByProductName(string appTitle, RegistryPlatform platform = RegistryPlatform.WOW64_WOW32)
     {
       return RegistryWOW6432.checkInstalled(appTitle, platform);
     }
         
-    public AppModel findByProductCode(Guid productCode, Platform platform = Platform.x64_x86)
+    public AppModel findByProductCode(Guid productCode, RegistryPlatform platform = RegistryPlatform.WOW64_WOW32)
     {
       return RegistryWOW6432.checkInstalled(productCode, platform);
     }
-    public IEnumerable<AppModel> findByProductCodes(IEnumerable<Guid> productCodes, Platform platform = Platform.x64_x86)
+    public IEnumerable<AppModel> findByProductCodes(IEnumerable<Guid> productCodes, RegistryPlatform platform = RegistryPlatform.WOW64_WOW32)
     {
       var apps = new List<AppModel>();
       foreach (var pc in productCodes)

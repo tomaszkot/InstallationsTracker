@@ -24,42 +24,42 @@ namespace InstallationsTracker
     {
     }
 
-    public static AppModel checkInstalled(string appNamePart, Platform platform = Platform.x64_x86)
+    public static AppModel checkInstalled(string appNamePart, RegistryPlatform platform = RegistryPlatform.WOW64_WOW32)
     {
 
       log.Info("checkInstalled " + appNamePart);
       var appModel = new AppModel();
 
-      if (platform == Platform.x86 || platform == Platform.x64_x86)
+      if (platform == RegistryPlatform.WOW32 || platform == RegistryPlatform.WOW64_WOW32)
       {
-        var app = SearchInKey(appNamePart, Platform.x86);
+        var app = SearchInKey(appNamePart, RegistryPlatform.WOW32);
         appModel.MSIPackages.AddRange(app.MSIPackages);
       }
 
-      if (platform == Platform.x64 || platform == Platform.x64_x86)
+      if (platform == RegistryPlatform.WOW64 || platform == RegistryPlatform.WOW64_WOW32)
       {
-        var app = SearchInKey(appNamePart, Platform.x64);
+        var app = SearchInKey(appNamePart, RegistryPlatform.WOW64);
         appModel.MSIPackages.AddRange(app.MSIPackages);
       }
 
       return appModel;
     }
 
-    internal static AppModel checkInstalled(Guid productCode, Platform platform = Platform.x64_x86)
+    internal static AppModel checkInstalled(Guid productCode, RegistryPlatform platform = RegistryPlatform.WOW64_WOW32)
     {
       log.Info("checkInstalled " + productCode);
       var appModel = new AppModel();
 
-      if (platform == Platform.x86 || platform == Platform.x64_x86)
+      if (platform == RegistryPlatform.WOW32 || platform == RegistryPlatform.WOW64_WOW32)
       {
-        var msi = SearchByProductCode(productCode, Platform.x86);
+        var msi = SearchByProductCode(productCode, RegistryPlatform.WOW32);
         if (msi != null)
           appModel.MSIPackages.Add(msi);
       }
 
-      if (platform == Platform.x64 || platform == Platform.x64_x86)
+      if (platform == RegistryPlatform.WOW64 || platform == RegistryPlatform.WOW64_WOW32)
       {
-        var msi = SearchByProductCode(productCode, Platform.x64);
+        var msi = SearchByProductCode(productCode, RegistryPlatform.WOW64);
         if (msi != null)
           appModel.MSIPackages.Add(msi);
       }
@@ -67,9 +67,9 @@ namespace InstallationsTracker
       return appModel;
     }
 
-    private static MSIPackage SearchByProductCode(Guid productCode, Platform platform)
+    private static MSIPackage SearchByProductCode(Guid productCode, RegistryPlatform platform)
     {
-      string registryKey = platform == Platform.x64 ? RegistryKeyX64 : RegistryKeyX86;
+      string registryKey = platform == RegistryPlatform.WOW64 ? RegistryKeyX64 : RegistryKeyX86;
       MSIPackage msi = null;
       var key = Registry.LocalMachine.OpenSubKey(registryKey);
       if (key != null)
@@ -106,10 +106,10 @@ namespace InstallationsTracker
       return "{" + productCode.ToString().ToUpper() + "}";
     }
 
-    private static AppModel SearchInKey(string appNamePart, Platform platform)
+    private static AppModel SearchInKey(string appNamePart, RegistryPlatform platform)
     {
       var app = new AppModel();
-      string registryKey = platform == Platform.x64 ? RegistryKeyX64 : RegistryKeyX86;
+      string registryKey = platform == RegistryPlatform.WOW64 ? RegistryKeyX64 : RegistryKeyX86;
       MSIPackage msi = null;
       var key = Registry.LocalMachine.OpenSubKey(registryKey);
       if (key != null)
@@ -144,7 +144,7 @@ namespace InstallationsTracker
     internal static bool forceUninstall(MSIPackage msi)
     {
       log.Info("forceUninstall " + msi.Name);
-      string registryKey = msi.Platform == Platform.x64 ? RegistryKeyX64 : RegistryKeyX86;
+      string registryKey = msi.RegistryPlatform == RegistryPlatform.WOW64 ? RegistryKeyX64 : RegistryKeyX86;
       var key = Registry.LocalMachine.OpenSubKey(registryKey, true);
       if (key != null)
       {
@@ -178,7 +178,7 @@ namespace InstallationsTracker
       return false;
     }
 
-    private static MSIPackage CreateMSI(RegistryKey subkey, Platform platform)
+    private static MSIPackage CreateMSI(RegistryKey subkey, RegistryPlatform platform)
     {
       MSIPackage msi;
       var guid = getGuidFromRegistryKey(subkey.ToString());
@@ -187,7 +187,7 @@ namespace InstallationsTracker
         msi.ProductCode = Guid.Parse(guid);
       msi.Name = subkey.GetValue("DisplayName") as string;
       msi.UninstallString = subkey.GetValue("UninstallString") as string;
-      msi.Platform = platform;
+      msi.RegistryPlatform = platform;
       msi.Version = subkey.GetValue("DisplayVersion") as string;
       msi.Publisher = subkey.GetValue("Publisher") as string;
       msi.RegistryKey = subkey.Name;
