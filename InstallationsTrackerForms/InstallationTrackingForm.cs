@@ -18,14 +18,10 @@ namespace InstallationsTrackerForms
     public InstallationTrackingForm()
     {
       InitializeComponent();
+            
 
-      var pfs = Enum.GetValues(typeof(Platform)).Cast<Platform>().ToList();
-      platformsCob.DataSource = pfs;
-
-      
       log.Info("InstallationTrackingForm ctor");
-
-      
+            
     }
 
     private void findBtn_Click(object sender, EventArgs e)
@@ -35,10 +31,10 @@ namespace InstallationsTrackerForms
       AppModel app = null;
       if (productNameGUIDRb.Checked)
       {
-        app = tracker.findByProductCode(Guid.Parse(productGUIDTxt.Text));
+        app = tracker.findByProductCode(Guid.Parse(productGUIDTxt.Text), SelectedPlatform);
       }
       else if (productNameGUIDRb.Checked)
-        app = tracker.findByProductName(appNamePartTxt.Text);
+        app = tracker.findByProductName(appNamePartTxt.Text, SelectedPlatform);
       else
       {
         app = findByProductCodes();
@@ -65,7 +61,7 @@ namespace InstallationsTrackerForms
 
 
         var tracker = new Tracker();
-        var apps = tracker.findByProductCodes(codes);
+        var apps = tracker.findByProductCodes(codes, SelectedPlatform);
         var msis = apps.SelectMany(i => i.MSIPackages).ToList();
         app.MSIPackages = msis;
       }
@@ -121,9 +117,16 @@ namespace InstallationsTrackerForms
       }
     }
 
+    Platform SelectedPlatform
+    {
+      get { return (Platform)Enum.Parse(typeof(Platform), platformsCob.SelectedItem.ToString()); }
+    }
+
     private void InstallationTrackingForm_Load(object sender, EventArgs e)
     {
-      findByProductCodes();
+      var pfs = Enum.GetValues(typeof(Platform)).Cast<Platform>().ToList();
+      platformsCob.DataSource = pfs;
+      platformsCob.SelectedItem = Platform.x64_x86;
     }
   }
 }

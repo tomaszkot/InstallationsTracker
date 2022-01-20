@@ -63,7 +63,7 @@ namespace InstallationsTrackerForms
       this.packagesGridView.Location = new System.Drawing.Point(12, 245);
       this.packagesGridView.Name = "packagesGridView";
       this.packagesGridView.RowTemplate.Height = 25;
-      this.packagesGridView.Size = new System.Drawing.Size(771, 218);
+      this.packagesGridView.Size = new System.Drawing.Size(915, 218);
       this.packagesGridView.TabIndex = 2;
       // 
       // findBtn
@@ -136,6 +136,7 @@ namespace InstallationsTrackerForms
       // 
       // platformsCob
       // 
+      this.platformsCob.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.platformsCob.FormattingEnabled = true;
       this.platformsCob.Location = new System.Drawing.Point(162, 170);
       this.platformsCob.Name = "platformsCob";
@@ -196,7 +197,7 @@ namespace InstallationsTrackerForms
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(796, 537);
+      this.ClientSize = new System.Drawing.Size(940, 537);
       this.Controls.Add(this.forceRomovalBtn);
       this.Controls.Add(this.groupBox1);
       this.Controls.Add(this.uninstallBtn);
