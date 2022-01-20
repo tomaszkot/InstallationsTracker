@@ -11,17 +11,19 @@ using System.Windows.Forms;
 
 namespace InstallationsTrackerForms
 {
-  public partial class TouchInstallationTrackingForm : Form
+  public partial class InstallationTrackingForm : Form
   {
-    public TouchInstallationTrackingForm()
+    public InstallationTrackingForm()
     {
       InitializeComponent();
 
-      //productNameGUIDRb.Checked = true;
+      var pfs = Enum.GetValues(typeof(Platform)).Cast<Platform>().ToList();
+      platformsCob.DataSource = pfs;
     }
 
     private void findBtn_Click(object sender, EventArgs e)
     {
+      this.packagesGridView.DataSource = null;
       var tracker = new Tracker();
       AppModel app = null;
       if (productNameGUIDRb.Checked)
@@ -33,19 +35,13 @@ namespace InstallationsTrackerForms
 
       this.packagesGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
       this.packagesGridView.Columns[this.packagesGridView.ColumnCount - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-      //HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall
+      
     }
-
-    
-
-
     private void uninstallBtn_Click(object sender, EventArgs e)
-    {
+    {      
       foreach (var row in packagesGridView.SelectedCells)
       {
-        int rowIndex = packagesGridView.SelectedCells[0].RowIndex;
-        DataGridViewRow selectedRow = packagesGridView.Rows[rowIndex];
-        var msi = selectedRow.DataBoundItem as MSIPackage;
+        MSIPackage msi = GetMSI();
         if (msi != null)
         {
           var tracker = new Tracker();
@@ -53,16 +49,36 @@ namespace InstallationsTrackerForms
           //MessageBox.Show(""+ msi.Name);
         }
       }
+
+      findBtn.PerformClick();
     }
 
-    private void label1_Click(object sender, EventArgs e)
+    private MSIPackage GetMSI()
     {
-
+      int rowIndex = packagesGridView.SelectedCells[0].RowIndex;
+      DataGridViewRow selectedRow = packagesGridView.Rows[rowIndex];
+      var msi = selectedRow.DataBoundItem as MSIPackage;
+      return msi;
     }
 
-    private void appNamePartTxt_TextChanged(object sender, EventArgs e)
+    private void forceRomovalBtn_Click(object sender, EventArgs e)
     {
+      var conf = MessageBox.Show("Do you really want to remove forcefully selected app(s)", "Confirm", MessageBoxButtons.YesNo);
+      if (conf == DialogResult.Yes)
+      {
+        foreach (var row in packagesGridView.SelectedCells)
+        {
+          MSIPackage msi = GetMSI();
+          if (msi != null)
+          {
+            var tracker = new Tracker();
+            tracker.forceUninstall(msi);
+          }
+        }
 
+        findBtn.PerformClick();
+        
+      }
     }
   }
 }

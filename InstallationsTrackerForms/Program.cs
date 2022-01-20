@@ -17,7 +17,7 @@ namespace InstallationsTrackerForms
       Application.SetHighDpiMode(HighDpiMode.SystemAware);
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
-      Application.Run(new TouchInstallationTrackingForm());
+      Application.Run(new InstallationTrackingForm());
     }
   }
 }

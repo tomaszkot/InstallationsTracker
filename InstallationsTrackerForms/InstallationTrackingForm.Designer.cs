@@ -1,7 +1,7 @@
 ﻿
 namespace InstallationsTrackerForms
 {
-  partial class TouchInstallationTrackingForm
+  partial class InstallationTrackingForm
   {
     /// <summary>
     ///  Required designer variable.
@@ -34,9 +34,12 @@ namespace InstallationsTrackerForms
       this.findBtn = new System.Windows.Forms.Button();
       this.uninstallBtn = new System.Windows.Forms.Button();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.platformsCob = new System.Windows.Forms.ComboBox();
+      this.label1 = new System.Windows.Forms.Label();
       this.productNameGUIDRb = new System.Windows.Forms.RadioButton();
       this.productNamePartRb = new System.Windows.Forms.RadioButton();
       this.productGUIDTxt = new System.Windows.Forms.TextBox();
+      this.forceRomovalBtn = new System.Windows.Forms.Button();
       ((System.ComponentModel.ISupportInitialize)(this.packagesGridView)).BeginInit();
       this.groupBox1.SuspendLayout();
       this.SuspendLayout();
@@ -47,13 +50,14 @@ namespace InstallationsTrackerForms
       this.appNamePartTxt.Name = "appNamePartTxt";
       this.appNamePartTxt.Size = new System.Drawing.Size(303, 23);
       this.appNamePartTxt.TabIndex = 1;
-      this.appNamePartTxt.Text = "Opus-Touch";
-      this.appNamePartTxt.TextChanged += new System.EventHandler(this.appNamePartTxt_TextChanged);
+      this.appNamePartTxt.Text = "Once upon";
       // 
       // packagesGridView
       // 
+      this.packagesGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.packagesGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-      this.packagesGridView.Location = new System.Drawing.Point(12, 177);
+      this.packagesGridView.Location = new System.Drawing.Point(12, 245);
       this.packagesGridView.Name = "packagesGridView";
       this.packagesGridView.RowTemplate.Height = 25;
       this.packagesGridView.Size = new System.Drawing.Size(771, 218);
@@ -61,7 +65,7 @@ namespace InstallationsTrackerForms
       // 
       // findBtn
       // 
-      this.findBtn.Location = new System.Drawing.Point(390, 123);
+      this.findBtn.Location = new System.Drawing.Point(390, 196);
       this.findBtn.Name = "findBtn";
       this.findBtn.Size = new System.Drawing.Size(75, 23);
       this.findBtn.TabIndex = 3;
@@ -71,7 +75,8 @@ namespace InstallationsTrackerForms
       // 
       // uninstallBtn
       // 
-      this.uninstallBtn.Location = new System.Drawing.Point(12, 415);
+      this.uninstallBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.uninstallBtn.Location = new System.Drawing.Point(12, 483);
       this.uninstallBtn.Name = "uninstallBtn";
       this.uninstallBtn.Size = new System.Drawing.Size(75, 23);
       this.uninstallBtn.TabIndex = 4;
@@ -81,6 +86,8 @@ namespace InstallationsTrackerForms
       // 
       // groupBox1
       // 
+      this.groupBox1.Controls.Add(this.platformsCob);
+      this.groupBox1.Controls.Add(this.label1);
       this.groupBox1.Controls.Add(this.productNameGUIDRb);
       this.groupBox1.Controls.Add(this.productNamePartRb);
       this.groupBox1.Controls.Add(this.productGUIDTxt);
@@ -88,10 +95,27 @@ namespace InstallationsTrackerForms
       this.groupBox1.Controls.Add(this.appNamePartTxt);
       this.groupBox1.Location = new System.Drawing.Point(12, 1);
       this.groupBox1.Name = "groupBox1";
-      this.groupBox1.Size = new System.Drawing.Size(481, 158);
+      this.groupBox1.Size = new System.Drawing.Size(481, 238);
       this.groupBox1.TabIndex = 5;
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "Find By";
+      // 
+      // platformsCob
+      // 
+      this.platformsCob.FormattingEnabled = true;
+      this.platformsCob.Location = new System.Drawing.Point(162, 136);
+      this.platformsCob.Name = "platformsCob";
+      this.platformsCob.Size = new System.Drawing.Size(303, 23);
+      this.platformsCob.TabIndex = 7;
+      // 
+      // label1
+      // 
+      this.label1.AutoSize = true;
+      this.label1.Location = new System.Drawing.Point(25, 145);
+      this.label1.Name = "label1";
+      this.label1.Size = new System.Drawing.Size(56, 15);
+      this.label1.TabIndex = 6;
+      this.label1.Text = "Platform:";
       // 
       // productNameGUIDRb
       // 
@@ -123,16 +147,28 @@ namespace InstallationsTrackerForms
       this.productGUIDTxt.TabIndex = 3;
       this.productGUIDTxt.Text = "7A940E3E-3FF1-4AE5-BC5B-453417FA4C52";
       // 
-      // TouchInstallationTrackingForm
+      // forceRomovalBtn
+      // 
+      this.forceRomovalBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.forceRomovalBtn.Location = new System.Drawing.Point(105, 482);
+      this.forceRomovalBtn.Name = "forceRomovalBtn";
+      this.forceRomovalBtn.Size = new System.Drawing.Size(148, 23);
+      this.forceRomovalBtn.TabIndex = 6;
+      this.forceRomovalBtn.Text = "Force Removal";
+      this.forceRomovalBtn.UseVisualStyleBackColor = true;
+      this.forceRomovalBtn.Click += new System.EventHandler(this.forceRomovalBtn_Click);
+      // 
+      // InstallationTrackingForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(924, 537);
+      this.ClientSize = new System.Drawing.Size(796, 537);
+      this.Controls.Add(this.forceRomovalBtn);
       this.Controls.Add(this.groupBox1);
       this.Controls.Add(this.uninstallBtn);
       this.Controls.Add(this.packagesGridView);
-      this.Name = "TouchInstallationTrackingForm";
-      this.Text = "Touch Installation Tracking Form";
+      this.Name = "InstallationTrackingForm";
+      this.Text = "Installation Tracker";
       ((System.ComponentModel.ISupportInitialize)(this.packagesGridView)).EndInit();
       this.groupBox1.ResumeLayout(false);
       this.groupBox1.PerformLayout();
@@ -149,6 +185,9 @@ namespace InstallationsTrackerForms
     private System.Windows.Forms.TextBox productGUIDTxt;
     private System.Windows.Forms.RadioButton productNameGUIDRb;
     private System.Windows.Forms.RadioButton productNamePartRb;
+    private System.Windows.Forms.ComboBox platformsCob;
+    private System.Windows.Forms.Label label1;
+    private System.Windows.Forms.Button forceRomovalBtn;
   }
 }
 

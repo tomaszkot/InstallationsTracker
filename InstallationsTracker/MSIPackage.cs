@@ -10,7 +10,13 @@ namespace InstallationsTracker
   {
     public string Name { get; set; }
     public Guid ProductCode { get; set; }
-    public Guid UpdateCode { get; set; }
+    //public Guid UpdateCode { get; set; }
+
+    public string Version { get; set; }//DisplayVersion
+
+    public string Publisher { get; set; }
+
+    public Platform Platform { get; set; }
     public string UninstallString { private get => uninstallString; set => uninstallString = value; }
 
     private string uninstallString;
