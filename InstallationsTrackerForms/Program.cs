@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,6 +15,9 @@ namespace InstallationsTrackerForms
     [STAThread]
     static void Main()
     {
+      var fi = new FileInfo("log4net.config");
+      var confs = log4net.Config.XmlConfigurator.Configure(fi); 
+
       Application.SetHighDpiMode(HighDpiMode.SystemAware);
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);

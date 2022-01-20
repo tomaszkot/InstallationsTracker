@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,12 +14,16 @@ namespace InstallationsTrackerForms
 {
   public partial class InstallationTrackingForm : Form
   {
+    private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
     public InstallationTrackingForm()
     {
       InitializeComponent();
 
       var pfs = Enum.GetValues(typeof(Platform)).Cast<Platform>().ToList();
       platformsCob.DataSource = pfs;
+
+      
+      log.Info("InstallationTrackingForm ctor");
     }
 
     private void findBtn_Click(object sender, EventArgs e)
