@@ -50,8 +50,7 @@ namespace InstallationsTracker
       appModel.MSIPackages.Add(p1);
       var p2 = new MSIPackage() { Name = "App2", ProductCode = Guid.NewGuid() };
       appModel.MSIPackages.Add(p2);
-
-    //  var pa = getExistingInstallationTargetPath();
+          
       return appModel;
     }
 
@@ -79,9 +78,9 @@ namespace InstallationsTracker
 
       // );
       //var title = "Once upon a Dungeon II version 0.3.2";
-      string key_Name = "";
-      bool isI =  RegistryWOW6432.checkInstalled(appTitle, out key_Name);
-      return key_Name.Trim();
+      string keyName = "";
+      RegistryWOW6432.checkInstalled(appTitle, out keyName);
+      return keyName.Trim();
     }
 
 
