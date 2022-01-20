@@ -52,6 +52,7 @@ namespace InstallationsTrackerForms
       this.appNamePartTxt.Name = "appNamePartTxt";
       this.appNamePartTxt.Size = new System.Drawing.Size(215, 23);
       this.appNamePartTxt.TabIndex = 1;
+      this.appNamePartTxt.Text = "Opus-Touch";
       // 
       // packagesGridView
       // 

@@ -336,46 +336,44 @@ namespace InstallationsTracker
       return valueNames;
     }
 
-    public static bool checkInstalled(string c_name, out string key_Name)
+    public static bool checkInstalled(string appNamePart, out string keyName)
     {
-      string displayName;
-
       string registryKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
-      RegistryKey key = Registry.LocalMachine.OpenSubKey(registryKey);
+      keyName = SearchInKey(appNamePart, registryKey);
+      if (!keyName.Any())
+      {
+        registryKey = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
+        keyName = SearchInKey(appNamePart, registryKey);
+      }
+      return keyName.Any();
+    }
 
+    private static string SearchInKey(string appNamePart, string registryKey)
+    {
+      var keyName = "";
+      var key = Registry.LocalMachine.OpenSubKey(registryKey);
       if (key != null)
       {
-        foreach (RegistryKey subkey in key.GetSubKeyNames().Select(keyName => key.OpenSubKey(keyName)))
+        try
         {
-          displayName = subkey.GetValue("DisplayName") as string;
-          key_Name = subkey.ToString();
-          if (displayName != null && displayName.Contains(c_name))
+          var subkeys = key.GetSubKeyNames().Select(i => key.OpenSubKey(i)).ToList();
+          foreach (var subkey in subkeys)
           {
-
-            return true;
+            var displayName = subkey.GetValue("DisplayName") as string;
+            if (displayName != null && displayName.Contains(appNamePart, StringComparison.InvariantCultureIgnoreCase))
+            {
+              keyName = subkey.ToString();
+              break;
+            }
           }
         }
-        key.Close();
+        finally
+        {
+          key.Close();
+        }
       }
 
-      registryKey = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
-      key = Registry.LocalMachine.OpenSubKey(registryKey);
-      if (key != null)
-      {
-        foreach (RegistryKey subkey in key.GetSubKeyNames().Select(keyName => key.OpenSubKey(keyName)))
-        {
-          displayName = subkey.GetValue("DisplayName") as string;
-          key_Name = subkey.ToString();
-          if (displayName != null && displayName.Contains(c_name))
-          {
-            key_Name = subkey.ToString();
-            return true;
-          }
-        }
-        key.Close();
-      }
-      key_Name = "";
-      return false;
+      return keyName;
     }
   }
 }
