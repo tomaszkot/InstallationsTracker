@@ -17,15 +17,18 @@ namespace InstallationsTrackerForms
     {
       InitializeComponent();
 
-
-      //packagesGridView.full
+      //productNameGUIDRb.Checked = true;
     }
 
     private void findBtn_Click(object sender, EventArgs e)
     {
       var tracker = new Tracker();
-      //var app = tracker.findByProductCode(Guid.NewGuid());
-      var app = tracker.findByProductName(appNamePartTxt.Text);
+      AppModel app = null;
+      if (productNameGUIDRb.Checked)
+        app = tracker.findByProductCode(Guid.Parse(productGUIDTxt.Text));
+      else
+        app = tracker.findByProductName(appNamePartTxt.Text);
+
       this.packagesGridView.DataSource = app.MSIPackages;
 
       this.packagesGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
@@ -42,13 +45,24 @@ namespace InstallationsTrackerForms
       {
         int rowIndex = packagesGridView.SelectedCells[0].RowIndex;
         DataGridViewRow selectedRow = packagesGridView.Rows[rowIndex];
-        //sstring cellValue = Convert.ToString(selectedRow.Cells["Name"].Value);
         var msi = selectedRow.DataBoundItem as MSIPackage;
         if (msi != null)
         {
-          MessageBox.Show(""+ msi.Name);
+          var tracker = new Tracker();
+          tracker.uninstall(msi);
+          //MessageBox.Show(""+ msi.Name);
         }
       }
+    }
+
+    private void label1_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void appNamePartTxt_TextChanged(object sender, EventArgs e)
+    {
+
     }
   }
 }

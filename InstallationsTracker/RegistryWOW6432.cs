@@ -1,8 +1,10 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace InstallationsTracker
 {
@@ -336,21 +338,63 @@ namespace InstallationsTracker
       return valueNames;
     }
 
-    public static bool checkInstalled(string appNamePart, out string keyName)
+    public static MSIPackage checkInstalled(string appNamePart)
     {
       string registryKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
-      keyName = SearchInKey(appNamePart, registryKey);
-      if (!keyName.Any())
+      var msi = SearchInKey(appNamePart, registryKey);
+      if (msi == null)
       {
         registryKey = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
-        keyName = SearchInKey(appNamePart, registryKey);
+        msi = SearchInKey(appNamePart, registryKey);
       }
-      return keyName.Any();
+      return msi;
     }
 
-    private static string SearchInKey(string appNamePart, string registryKey)
+    internal static MSIPackage checkInstalled(Guid productCode)
     {
-      var keyName = "";
+      string registryKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+      var msi = SearchByProductCode(productCode, registryKey);
+      if (msi == null)
+      {
+        registryKey = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
+
+        msi = SearchByProductCode(productCode, registryKey);
+      }
+      return msi;
+    }
+
+    private static MSIPackage SearchByProductCode(Guid productCode, string registryKey)
+    {
+      MSIPackage MSIPackage = null;
+      var key = Registry.LocalMachine.OpenSubKey(registryKey);
+      if (key != null)
+      {
+        try
+        {
+          var subkeys = key.GetSubKeyNames().Where(i => i == "{" + productCode.ToString().ToUpper() + "}").ToList();
+          if (subkeys.Any())
+          {
+            var subKey = key.OpenSubKey(subkeys.Single());
+            var displayName = subKey.GetValue("DisplayName") as string;
+            MSIPackage = CreateMSI(subKey, displayName);
+          }
+        }
+        catch (Exception ex)
+        {
+          MSIPackage = null;
+        }
+        finally
+        {
+          key.Close();
+        }
+      }
+
+      return MSIPackage;
+    }
+
+    private static MSIPackage SearchInKey(string appNamePart, string registryKey)
+    {
+      MSIPackage MSIPackage = null;
       var key = Registry.LocalMachine.OpenSubKey(registryKey);
       if (key != null)
       {
@@ -362,10 +406,14 @@ namespace InstallationsTracker
             var displayName = subkey.GetValue("DisplayName") as string;
             if (displayName != null && displayName.Contains(appNamePart, StringComparison.InvariantCultureIgnoreCase))
             {
-              keyName = subkey.ToString();
+              MSIPackage = CreateMSI(subkey, displayName);
               break;
             }
           }
+        }
+        catch (Exception ex)
+        {
+          MSIPackage = null;
         }
         finally
         {
@@ -373,7 +421,35 @@ namespace InstallationsTracker
         }
       }
 
-      return keyName;
+      return MSIPackage;
+    }
+
+    private static MSIPackage CreateMSI(RegistryKey subkey, string displayName)
+    {
+      MSIPackage MSIPackage;
+      var guid = getGuidFromRegistryKey(subkey.ToString());
+      MSIPackage = new MSIPackage();
+      MSIPackage.ProductCode = Guid.Parse(guid);
+      MSIPackage.Name = displayName;
+      MSIPackage.UninstallString = subkey.GetValue("UninstallString") as string;
+      return MSIPackage;
+    }
+
+    private static string getGuidFromRegistryKey(string fullKey)
+    {
+      var key = Path.GetFileName(fullKey);
+      var regex = "{(?<GUID>.*)}";
+      var qariRegex = new Regex(regex);
+      var mc = qariRegex.Matches(key);
+      if (mc.Any())
+      {
+        var cc = mc[0].Captures;
+        if (cc.Any())
+          return cc[0].Value;
+      }
+
+      return "";
     }
   }
 }
+

@@ -11,5 +11,11 @@ namespace InstallationsTracker
     public string Name { get; set; }
     public Guid ProductCode { get; set; }
     public Guid UpdateCode { get; set; }
+    public string UninstallString { private get => uninstallString; set => uninstallString = value; }
+
+    private string uninstallString;
+
+    public string GetUninstallString() { return uninstallString; }
+
   }
 }

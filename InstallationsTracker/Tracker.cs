@@ -10,55 +10,47 @@ namespace InstallationsTracker
 {
   public class Tracker
   {
+
+    //UninstallString
     public AppModel findByProductName(string appTitle)
     {
       var appModel = new AppModel();
-      var fullKey = getRegistryKey(appTitle);
-      if (!string.IsNullOrEmpty(fullKey) && !fullKey.Contains("Steam"))//TODO
-      {
-        var guid = getGuidFromRegistryKey(fullKey);
-        if (guid.Any())
-        {
-          var msi = new MSIPackage() { Name = appTitle, ProductCode = Guid.Parse(guid) };
-          appModel.MSIPackages.Add(msi);
-        }
-      }
+      var msi = getRegistryKey(appTitle);
+      //if (!string.IsNullOrEmpty(fullKey) && !fullKey.Contains("Steam"))//TODO
+      //{
+      //  var guid = getGuidFromRegistryKey(fullKey);
+      //  if (guid.Any())
+      //  {
+      //    var msi = new MSIPackage() { Name = appTitle, ProductCode = Guid.Parse(guid) };
+      if(msi!=null)
+        appModel.MSIPackages.Add(msi);
+      //  }
+      //}
       return appModel;
     }
-
-    private static string getGuidFromRegistryKey(string fullKey)
-    {
-      var key = Path.GetFileName(fullKey);
-      var regex = "{(?<GUID>.*)}";
-      var qariRegex = new Regex(regex);
-      var mc = qariRegex.Matches(key);
-      if (mc.Any())
-      {
-        var cc = mc[0].Captures;
-        if(cc.Any())
-          return cc[0].Value;
-      }
-
-      return "";
-    }
-
+        
     public AppModel findByProductCode(Guid productCode)
     {
       var appModel = new AppModel();
-
-      var p1 = new MSIPackage() { Name = "App1", ProductCode = Guid.NewGuid() };
-      appModel.MSIPackages.Add(p1);
-      var p2 = new MSIPackage() { Name = "App2", ProductCode = Guid.NewGuid() };
-      appModel.MSIPackages.Add(p2);
-          
+      var msi = RegistryWOW6432.checkInstalled(productCode);
+      if (msi != null)
+        appModel.MSIPackages.Add(msi);
       return appModel;
+      //
+
+      //var p1 = new MSIPackage() { Name = "App1", ProductCode = Guid.NewGuid() };
+      //appModel.MSIPackages.Add(p1);
+      //var p2 = new MSIPackage() { Name = "App2", ProductCode = Guid.NewGuid() };
+      //appModel.MSIPackages.Add(p2);
+
+      //return appModel;
     }
 
     //private const string OpusRegistryBasePath = @"SOFTWARE\BRUKER\OPUS";
     /// <summary>
     /// Read target path in case OPUS is already installed (required for modify/repair).
     /// </summary>
-    public static string getRegistryKey(string appTitle)
+    public static MSIPackage getRegistryKey(string appTitle)
     {
       //string version = Variables.GetStringVariable(StringVariable.Opus_Full_Version);
       //string path = RegistryWOW6432.GetRegValue(
@@ -78,11 +70,16 @@ namespace InstallationsTracker
 
       // );
       //var title = "Once upon a Dungeon II version 0.3.2";
-      string keyName = "";
-      RegistryWOW6432.checkInstalled(appTitle, out keyName);
-      return keyName.Trim();
+      var MSIPackage = RegistryWOW6432.checkInstalled(appTitle);
+      return MSIPackage;
     }
 
+    public void uninstall(MSIPackage msi)
+    {
+      string strCmdText;
+      strCmdText = "/C "+ msi.GetUninstallString();
+      System.Diagnostics.Process.Start("CMD.exe", strCmdText);
+    }
 
   }
 }
