@@ -49,7 +49,7 @@ namespace InstallationsTrackerForms
       // 
       // appNamePartTxt
       // 
-      this.appNamePartTxt.Location = new System.Drawing.Point(162, 38);
+      this.appNamePartTxt.Location = new System.Drawing.Point(162, 29);
       this.appNamePartTxt.Name = "appNamePartTxt";
       this.appNamePartTxt.Size = new System.Drawing.Size(303, 23);
       this.appNamePartTxt.TabIndex = 1;
@@ -68,7 +68,7 @@ namespace InstallationsTrackerForms
       // 
       // findBtn
       // 
-      this.findBtn.Location = new System.Drawing.Point(390, 206);
+      this.findBtn.Location = new System.Drawing.Point(390, 203);
       this.findBtn.Name = "findBtn";
       this.findBtn.Size = new System.Drawing.Size(75, 23);
       this.findBtn.TabIndex = 3;
@@ -108,7 +108,7 @@ namespace InstallationsTrackerForms
       // 
       // button1
       // 
-      this.button1.Location = new System.Drawing.Point(430, 130);
+      this.button1.Location = new System.Drawing.Point(430, 121);
       this.button1.Name = "button1";
       this.button1.Size = new System.Drawing.Size(37, 23);
       this.button1.TabIndex = 10;
@@ -117,7 +117,7 @@ namespace InstallationsTrackerForms
       // 
       // textBox1
       // 
-      this.textBox1.Location = new System.Drawing.Point(162, 131);
+      this.textBox1.Location = new System.Drawing.Point(162, 122);
       this.textBox1.Name = "textBox1";
       this.textBox1.Size = new System.Drawing.Size(262, 23);
       this.textBox1.TabIndex = 9;
@@ -126,7 +126,7 @@ namespace InstallationsTrackerForms
       // fromFileRb
       // 
       this.fromFileRb.AutoSize = true;
-      this.fromFileRb.Location = new System.Drawing.Point(25, 131);
+      this.fromFileRb.Location = new System.Drawing.Point(25, 122);
       this.fromFileRb.Name = "fromFileRb";
       this.fromFileRb.Size = new System.Drawing.Size(108, 19);
       this.fromFileRb.TabIndex = 8;
@@ -138,7 +138,7 @@ namespace InstallationsTrackerForms
       // 
       this.platformsCob.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.platformsCob.FormattingEnabled = true;
-      this.platformsCob.Location = new System.Drawing.Point(162, 170);
+      this.platformsCob.Location = new System.Drawing.Point(162, 161);
       this.platformsCob.Name = "platformsCob";
       this.platformsCob.Size = new System.Drawing.Size(303, 23);
       this.platformsCob.TabIndex = 7;
@@ -146,7 +146,7 @@ namespace InstallationsTrackerForms
       // label1
       // 
       this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(25, 179);
+      this.label1.Location = new System.Drawing.Point(25, 164);
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(101, 15);
       this.label1.TabIndex = 6;
@@ -155,7 +155,7 @@ namespace InstallationsTrackerForms
       // productGUIDRb
       // 
       this.productGUIDRb.AutoSize = true;
-      this.productGUIDRb.Location = new System.Drawing.Point(25, 84);
+      this.productGUIDRb.Location = new System.Drawing.Point(25, 75);
       this.productGUIDRb.Name = "productGUIDRb";
       this.productGUIDRb.Size = new System.Drawing.Size(100, 19);
       this.productGUIDRb.TabIndex = 5;
@@ -166,7 +166,7 @@ namespace InstallationsTrackerForms
       // 
       this.productNamePartRb.AutoSize = true;
       this.productNamePartRb.Checked = true;
-      this.productNamePartRb.Location = new System.Drawing.Point(25, 40);
+      this.productNamePartRb.Location = new System.Drawing.Point(25, 31);
       this.productNamePartRb.Name = "productNamePartRb";
       this.productNamePartRb.Size = new System.Drawing.Size(127, 19);
       this.productNamePartRb.TabIndex = 4;
@@ -176,7 +176,7 @@ namespace InstallationsTrackerForms
       // 
       // productGUIDTxt
       // 
-      this.productGUIDTxt.Location = new System.Drawing.Point(162, 83);
+      this.productGUIDTxt.Location = new System.Drawing.Point(162, 74);
       this.productGUIDTxt.Name = "productGUIDTxt";
       this.productGUIDTxt.Size = new System.Drawing.Size(303, 23);
       this.productGUIDTxt.TabIndex = 3;
