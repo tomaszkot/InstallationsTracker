@@ -19,6 +19,18 @@ namespace InstallationsTracker
     {
       return RegistryWOW6432.checkInstalled(productCode, platform);
     }
+    public IEnumerable<AppModel> findByProductCodes(IEnumerable<Guid> productCodes, Platform platform = Platform.x64_x86)
+    {
+      var apps = new List<AppModel>();
+      foreach (var pc in productCodes)
+      {
+        var app = RegistryWOW6432.checkInstalled(pc, platform);
+        if (app != null)
+          apps.Add(app);
+      }
+      return apps;
+      
+    }
 
     public void uninstall(MSIPackage msi)
     {

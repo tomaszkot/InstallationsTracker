@@ -22,15 +22,8 @@ namespace InstallationsTracker
 
     static RegistryWOW6432()
     {
-      try
-      {
-        //FileInfo fi = new FileInfo("log4net.config");
-        //log4net.Config.XmlConfigurator.Configure(fi);
-      }
-      catch (Exception ex)
-      {
-      }
     }
+
     public static AppModel checkInstalled(string appNamePart, Platform platform = Platform.x64_x86)
     {
 
@@ -110,6 +103,8 @@ namespace InstallationsTracker
 
     private static string GetGuidInBra(Guid productCode)
     {
+      //if (productCode.ToString().StartsWith("{"))
+//        return productCode.ToString().ToUpper();
       return "{" + productCode.ToString().ToUpper() + "}";
     }
 
@@ -189,7 +184,8 @@ namespace InstallationsTracker
       MSIPackage msi;
       var guid = getGuidFromRegistryKey(subkey.ToString());
       msi = new MSIPackage();
-      msi.ProductCode = Guid.Parse(guid);
+      if(guid.Any())
+        msi.ProductCode = Guid.Parse(guid);
       msi.Name = subkey.GetValue("DisplayName") as string;
       msi.UninstallString = subkey.GetValue("UninstallString") as string;
       msi.Platform = platform;

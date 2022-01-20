@@ -34,6 +34,9 @@ namespace InstallationsTrackerForms
       this.findBtn = new System.Windows.Forms.Button();
       this.uninstallBtn = new System.Windows.Forms.Button();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.button1 = new System.Windows.Forms.Button();
+      this.textBox1 = new System.Windows.Forms.TextBox();
+      this.fromFileRb = new System.Windows.Forms.RadioButton();
       this.platformsCob = new System.Windows.Forms.ComboBox();
       this.label1 = new System.Windows.Forms.Label();
       this.productNameGUIDRb = new System.Windows.Forms.RadioButton();
@@ -65,7 +68,7 @@ namespace InstallationsTrackerForms
       // 
       // findBtn
       // 
-      this.findBtn.Location = new System.Drawing.Point(390, 196);
+      this.findBtn.Location = new System.Drawing.Point(390, 206);
       this.findBtn.Name = "findBtn";
       this.findBtn.Size = new System.Drawing.Size(75, 23);
       this.findBtn.TabIndex = 3;
@@ -86,6 +89,9 @@ namespace InstallationsTrackerForms
       // 
       // groupBox1
       // 
+      this.groupBox1.Controls.Add(this.button1);
+      this.groupBox1.Controls.Add(this.textBox1);
+      this.groupBox1.Controls.Add(this.fromFileRb);
       this.groupBox1.Controls.Add(this.platformsCob);
       this.groupBox1.Controls.Add(this.label1);
       this.groupBox1.Controls.Add(this.productNameGUIDRb);
@@ -100,10 +106,38 @@ namespace InstallationsTrackerForms
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "Find By";
       // 
+      // button1
+      // 
+      this.button1.Location = new System.Drawing.Point(430, 130);
+      this.button1.Name = "button1";
+      this.button1.Size = new System.Drawing.Size(37, 23);
+      this.button1.TabIndex = 10;
+      this.button1.Text = "...";
+      this.button1.UseVisualStyleBackColor = true;
+      // 
+      // textBox1
+      // 
+      this.textBox1.Location = new System.Drawing.Point(162, 131);
+      this.textBox1.Name = "textBox1";
+      this.textBox1.Size = new System.Drawing.Size(262, 23);
+      this.textBox1.TabIndex = 9;
+      this.textBox1.Text = "guids.txt";
+      // 
+      // fromFileRb
+      // 
+      this.fromFileRb.AutoSize = true;
+      this.fromFileRb.Location = new System.Drawing.Point(25, 131);
+      this.fromFileRb.Name = "fromFileRb";
+      this.fromFileRb.Size = new System.Drawing.Size(77, 19);
+      this.fromFileRb.TabIndex = 8;
+      this.fromFileRb.TabStop = true;
+      this.fromFileRb.Text = "From File:";
+      this.fromFileRb.UseVisualStyleBackColor = true;
+      // 
       // platformsCob
       // 
       this.platformsCob.FormattingEnabled = true;
-      this.platformsCob.Location = new System.Drawing.Point(162, 136);
+      this.platformsCob.Location = new System.Drawing.Point(162, 170);
       this.platformsCob.Name = "platformsCob";
       this.platformsCob.Size = new System.Drawing.Size(303, 23);
       this.platformsCob.TabIndex = 7;
@@ -111,7 +145,7 @@ namespace InstallationsTrackerForms
       // label1
       // 
       this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(25, 145);
+      this.label1.Location = new System.Drawing.Point(25, 179);
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(56, 15);
       this.label1.TabIndex = 6;
@@ -169,6 +203,7 @@ namespace InstallationsTrackerForms
       this.Controls.Add(this.packagesGridView);
       this.Name = "InstallationTrackingForm";
       this.Text = "Installation Tracker";
+      this.Load += new System.EventHandler(this.InstallationTrackingForm_Load);
       ((System.ComponentModel.ISupportInitialize)(this.packagesGridView)).EndInit();
       this.groupBox1.ResumeLayout(false);
       this.groupBox1.PerformLayout();
@@ -188,6 +223,9 @@ namespace InstallationsTrackerForms
     private System.Windows.Forms.ComboBox platformsCob;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Button forceRomovalBtn;
+    private System.Windows.Forms.RadioButton fromFileRb;
+    private System.Windows.Forms.Button button1;
+    private System.Windows.Forms.TextBox textBox1;
   }
 }
 

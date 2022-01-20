@@ -24,6 +24,8 @@ namespace InstallationsTrackerForms
 
       
       log.Info("InstallationTrackingForm ctor");
+
+      
     }
 
     private void findBtn_Click(object sender, EventArgs e)
@@ -32,16 +34,49 @@ namespace InstallationsTrackerForms
       var tracker = new Tracker();
       AppModel app = null;
       if (productNameGUIDRb.Checked)
+      {
         app = tracker.findByProductCode(Guid.Parse(productGUIDTxt.Text));
-      else
+      }
+      else if (productNameGUIDRb.Checked)
         app = tracker.findByProductName(appNamePartTxt.Text);
+      else
+      {
+        app = findByProductCodes();
+      }
 
-      this.packagesGridView.DataSource = app.MSIPackages;
+      Bind(app.MSIPackages);
+    }
+
+    private void Bind(IEnumerable<MSIPackage> msis)
+    {
+      this.packagesGridView.DataSource = msis;
 
       this.packagesGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
       this.packagesGridView.Columns[this.packagesGridView.ColumnCount - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-      
     }
+
+    AppModel findByProductCodes()
+    {
+      var app = new AppModel();
+      try
+      {
+        var codes = new List<Guid>();
+        File.ReadAllText("guids.txt").Split("\n").Select(i => i.Trim('\n')).ToList().ForEach(j=>codes.Add(Guid.Parse(j)));
+
+
+        var tracker = new Tracker();
+        var apps = tracker.findByProductCodes(codes);
+        var msis = apps.SelectMany(i => i.MSIPackages).ToList();
+        app.MSIPackages = msis;
+      }
+      catch (Exception ex)
+      {
+        log.Error(ex);
+      }
+
+      return app;
+    }
+
     private void uninstallBtn_Click(object sender, EventArgs e)
     {      
       foreach (var row in packagesGridView.SelectedCells)
@@ -84,6 +119,11 @@ namespace InstallationsTrackerForms
         findBtn.PerformClick();
         
       }
+    }
+
+    private void InstallationTrackingForm_Load(object sender, EventArgs e)
+    {
+      findByProductCodes();
     }
   }
 }
