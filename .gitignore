@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+*.suo
+/InstallationsTrackerForms/bin/Debug/net5.0-windows
+/InstallationsTrackerForms/obj
+/InstallationsTracker/obj
+/InstallationsTracker/bin/Debug/net5.0
