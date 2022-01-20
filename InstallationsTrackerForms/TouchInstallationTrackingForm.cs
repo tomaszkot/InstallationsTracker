@@ -27,6 +27,9 @@ namespace InstallationsTrackerForms
       //var app = tracker.findByProductCode(Guid.NewGuid());
       var app = tracker.findByProductName(appNamePartTxt.Text);
       this.packagesGridView.DataSource = app.MSIPackages;
+
+      this.packagesGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+      this.packagesGridView.Columns[this.packagesGridView.ColumnCount - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
       //HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall
     }
 
