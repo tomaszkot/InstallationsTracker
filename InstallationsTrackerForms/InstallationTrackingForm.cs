@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,7 +22,15 @@ namespace InstallationsTrackerForms
             
 
       log.Info("InstallationTrackingForm ctor");
-            
+      RegistryWOW6432.ExtraLogSink += RegistryWOW6432_ExtraLogSink;
+    }
+
+    private void RegistryWOW6432_ExtraLogSink(object sender, Exception e)
+    {
+      var message = e.Message;
+      if (e is SecurityException se)
+        message += " (Run app in Admin mode).";
+      MessageBox.Show(message);
     }
 
     private void findBtn_Click(object sender, EventArgs e)

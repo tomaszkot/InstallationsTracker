@@ -1,9 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace InstallationsTracker
@@ -16,6 +14,7 @@ namespace InstallationsTracker
   public static class RegistryWOW6432
   {
     private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+    public static event EventHandler<Exception> ExtraLogSink;//TODO
 
     const string RegistryKeyX86 = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
     const string RegistryKeyX64 = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
@@ -145,7 +144,18 @@ namespace InstallationsTracker
     {
       log.Info("forceUninstall " + msi.Name);
       string registryKey = msi.RegistryPlatform == RegistryPlatform.WOW64 ? RegistryKeyX64 : RegistryKeyX86;
-      var key = Registry.LocalMachine.OpenSubKey(registryKey, true);
+      RegistryKey key = null;
+      try
+      {
+        key = Registry.LocalMachine.OpenSubKey(registryKey, true);
+      }
+      catch (Exception ex)
+      {
+        if (ExtraLogSink != null)
+          ExtraLogSink(null, ex);
+        log.Error(ex.Message);
+        return false;
+      }
       if (key != null)
       {
         try

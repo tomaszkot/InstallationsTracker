@@ -53,7 +53,6 @@ namespace InstallationsTrackerForms
       this.appNamePartTxt.Name = "appNamePartTxt";
       this.appNamePartTxt.Size = new System.Drawing.Size(303, 23);
       this.appNamePartTxt.TabIndex = 1;
-      this.appNamePartTxt.Text = "Once upon";
       // 
       // packagesGridView
       // 
