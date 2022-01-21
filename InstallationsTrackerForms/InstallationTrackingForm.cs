@@ -35,13 +35,20 @@ namespace InstallationsTrackerForms
 
     private void findBtn_Click(object sender, EventArgs e)
     {
+      findResultDescLb.Text = "";
       this.packagesGridView.DataSource = null;
       var tracker = new Tracker();
       AppModel app = null;
       if (this.productNamePartRb.Checked)
+      {
         app = tracker.findByProductName(appNamePartTxt.Text, SelectedPlatform);
+        findResultDescLb.Text = $"Found {app.MSIPackages.Count} matches for input: {appNamePartTxt.Text}";
+      }
       else if (productGUIDRb.Checked)
+      {
         app = tracker.findByProductCode(Guid.Parse(productGUIDTxt.Text), SelectedPlatform);
+        findResultDescLb.Text = $"Found {app.MSIPackages.Count} matches for input: {productGUIDTxt.Text}";
+      }
       else
       {
         app = findByProductCodes();
@@ -71,6 +78,8 @@ namespace InstallationsTrackerForms
         var apps = tracker.findByProductCodes(codes, SelectedPlatform);
         var msis = apps.SelectMany(i => i.MSIPackages).ToList();
         app.MSIPackages = msis;
+
+        findResultDescLb.Text = $"Found {msis.Count} matches for {codes.Count} input GUIDss.";
       }
       catch (Exception ex)
       {
