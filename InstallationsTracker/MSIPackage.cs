@@ -19,7 +19,7 @@ namespace InstallationsTracker
     public RegistryPlatform RegistryPlatform { get; set; }
 
     //public RegistryPlatform GetRegistryPlatform() { return RegistryPlatform; }
-    public string UninstallString { private get => uninstallString; set => uninstallString = value; }
+    public string UninstallString { get => uninstallString; set => uninstallString = value; }
 
     private string uninstallString;
 

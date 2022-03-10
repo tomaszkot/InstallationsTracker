@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\InstallationsTracker",
+    "\\InstallationsTrackerForms"
   ],
-  "SelectedNode": "\\InstallationsTracker.sln",
+  "SelectedNode": "\\InstallationsTrackerForms\\InstallationTrackingForm.cs",
   "PreviewInSolutionExplorer": false
 }
