@@ -34,8 +34,8 @@ namespace InstallationsTrackerForms
       this.findBtn = new System.Windows.Forms.Button();
       this.uninstallBtn = new System.Windows.Forms.Button();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
-      this.button1 = new System.Windows.Forms.Button();
-      this.textBox1 = new System.Windows.Forms.TextBox();
+      this.pickGuidsFileBtn = new System.Windows.Forms.Button();
+      this.guidsFileTxt = new System.Windows.Forms.TextBox();
       this.fromFileRb = new System.Windows.Forms.RadioButton();
       this.platformsCob = new System.Windows.Forms.ComboBox();
       this.label1 = new System.Windows.Forms.Label();
@@ -43,6 +43,7 @@ namespace InstallationsTrackerForms
       this.productNamePartRb = new System.Windows.Forms.RadioButton();
       this.productGUIDTxt = new System.Windows.Forms.TextBox();
       this.forceRomovalBtn = new System.Windows.Forms.Button();
+      this.findResultDescLb = new System.Windows.Forms.Label();
       ((System.ComponentModel.ISupportInitialize)(this.packagesGridView)).BeginInit();
       this.groupBox1.SuspendLayout();
       this.SuspendLayout();
@@ -59,7 +60,7 @@ namespace InstallationsTrackerForms
       this.packagesGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.packagesGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-      this.packagesGridView.Location = new System.Drawing.Point(12, 245);
+      this.packagesGridView.Location = new System.Drawing.Point(12, 271);
       this.packagesGridView.Name = "packagesGridView";
       this.packagesGridView.RowTemplate.Height = 25;
       this.packagesGridView.Size = new System.Drawing.Size(1085, 218);
@@ -78,7 +79,7 @@ namespace InstallationsTrackerForms
       // uninstallBtn
       // 
       this.uninstallBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-      this.uninstallBtn.Location = new System.Drawing.Point(12, 483);
+      this.uninstallBtn.Location = new System.Drawing.Point(12, 504);
       this.uninstallBtn.Name = "uninstallBtn";
       this.uninstallBtn.Size = new System.Drawing.Size(75, 23);
       this.uninstallBtn.TabIndex = 4;
@@ -88,8 +89,8 @@ namespace InstallationsTrackerForms
       // 
       // groupBox1
       // 
-      this.groupBox1.Controls.Add(this.button1);
-      this.groupBox1.Controls.Add(this.textBox1);
+      this.groupBox1.Controls.Add(this.pickGuidsFileBtn);
+      this.groupBox1.Controls.Add(this.guidsFileTxt);
       this.groupBox1.Controls.Add(this.fromFileRb);
       this.groupBox1.Controls.Add(this.platformsCob);
       this.groupBox1.Controls.Add(this.label1);
@@ -105,22 +106,23 @@ namespace InstallationsTrackerForms
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "Find By";
       // 
-      // button1
+      // pickGuidsFileBtn
       // 
-      this.button1.Location = new System.Drawing.Point(430, 121);
-      this.button1.Name = "button1";
-      this.button1.Size = new System.Drawing.Size(37, 23);
-      this.button1.TabIndex = 10;
-      this.button1.Text = "...";
-      this.button1.UseVisualStyleBackColor = true;
+      this.pickGuidsFileBtn.Location = new System.Drawing.Point(442, 121);
+      this.pickGuidsFileBtn.Name = "pickGuidsFileBtn";
+      this.pickGuidsFileBtn.Size = new System.Drawing.Size(25, 23);
+      this.pickGuidsFileBtn.TabIndex = 10;
+      this.pickGuidsFileBtn.Text = "...";
+      this.pickGuidsFileBtn.UseVisualStyleBackColor = true;
+      this.pickGuidsFileBtn.Click += new System.EventHandler(this.pickGuidsFileBtn_Click);
       // 
-      // textBox1
+      // guidsFileTxt
       // 
-      this.textBox1.Location = new System.Drawing.Point(162, 122);
-      this.textBox1.Name = "textBox1";
-      this.textBox1.Size = new System.Drawing.Size(262, 23);
-      this.textBox1.TabIndex = 9;
-      this.textBox1.Text = "guids.txt";
+      this.guidsFileTxt.Location = new System.Drawing.Point(162, 122);
+      this.guidsFileTxt.Name = "guidsFileTxt";
+      this.guidsFileTxt.Size = new System.Drawing.Size(274, 23);
+      this.guidsFileTxt.TabIndex = 9;
+      this.guidsFileTxt.Text = "guids.txt";
       // 
       // fromFileRb
       // 
@@ -184,7 +186,7 @@ namespace InstallationsTrackerForms
       // forceRomovalBtn
       // 
       this.forceRomovalBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-      this.forceRomovalBtn.Location = new System.Drawing.Point(105, 483);
+      this.forceRomovalBtn.Location = new System.Drawing.Point(105, 504);
       this.forceRomovalBtn.Name = "forceRomovalBtn";
       this.forceRomovalBtn.Size = new System.Drawing.Size(148, 23);
       this.forceRomovalBtn.TabIndex = 6;
@@ -192,11 +194,20 @@ namespace InstallationsTrackerForms
       this.forceRomovalBtn.UseVisualStyleBackColor = true;
       this.forceRomovalBtn.Click += new System.EventHandler(this.forceRomovalBtn_Click);
       // 
+      // findResultDescLb
+      // 
+      this.findResultDescLb.AutoSize = true;
+      this.findResultDescLb.Location = new System.Drawing.Point(14, 249);
+      this.findResultDescLb.Name = "findResultDescLb";
+      this.findResultDescLb.Size = new System.Drawing.Size(0, 15);
+      this.findResultDescLb.TabIndex = 7;
+      // 
       // InstallationTrackingForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(1110, 537);
+      this.Controls.Add(this.findResultDescLb);
       this.Controls.Add(this.forceRomovalBtn);
       this.Controls.Add(this.groupBox1);
       this.Controls.Add(this.uninstallBtn);
@@ -208,6 +219,7 @@ namespace InstallationsTrackerForms
       this.groupBox1.ResumeLayout(false);
       this.groupBox1.PerformLayout();
       this.ResumeLayout(false);
+      this.PerformLayout();
 
     }
 
@@ -224,8 +236,9 @@ namespace InstallationsTrackerForms
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Button forceRomovalBtn;
     private System.Windows.Forms.RadioButton fromFileRb;
-    private System.Windows.Forms.Button button1;
-    private System.Windows.Forms.TextBox textBox1;
+    private System.Windows.Forms.TextBox guidsFileTxt;
+    private System.Windows.Forms.Button pickGuidsFileBtn;
+    private System.Windows.Forms.Label findResultDescLb;
   }
 }
 

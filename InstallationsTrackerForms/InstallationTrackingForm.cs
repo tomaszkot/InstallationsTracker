@@ -35,13 +35,20 @@ namespace InstallationsTrackerForms
 
     private void findBtn_Click(object sender, EventArgs e)
     {
+      findResultDescLb.Text = "";
       this.packagesGridView.DataSource = null;
       var tracker = new Tracker();
       AppModel app = null;
       if (this.productNamePartRb.Checked)
+      {
         app = tracker.findByProductName(appNamePartTxt.Text, SelectedPlatform);
+        findResultDescLb.Text = $"Found {app.MSIPackages.Count} matches for input: {appNamePartTxt.Text}";
+      }
       else if (productGUIDRb.Checked)
+      {
         app = tracker.findByProductCode(Guid.Parse(productGUIDTxt.Text), SelectedPlatform);
+        findResultDescLb.Text = $"Found {app.MSIPackages.Count} matches for input: {productGUIDTxt.Text}";
+      }
       else
       {
         app = findByProductCodes();
@@ -64,13 +71,15 @@ namespace InstallationsTrackerForms
       try
       {
         var codes = new List<Guid>();
-        File.ReadAllText("guids.txt").Split("\n").Select(i => i.Trim('\n')).ToList().ForEach(j=>codes.Add(Guid.Parse(j)));
+        File.ReadAllText(guidsFileTxt.Text).Split("\n").Select(i => i.Trim('\n')).ToList().ForEach(j=>codes.Add(Guid.Parse(j)));
 
 
         var tracker = new Tracker();
         var apps = tracker.findByProductCodes(codes, SelectedPlatform);
         var msis = apps.SelectMany(i => i.MSIPackages).ToList();
         app.MSIPackages = msis;
+
+        findResultDescLb.Text = $"Found {msis.Count} matches for {codes.Count} input GUIDss.";
       }
       catch (Exception ex)
       {
@@ -134,6 +143,31 @@ namespace InstallationsTrackerForms
       var pfs = Enum.GetValues(typeof(RegistryPlatform)).Cast<RegistryPlatform>().ToList();
       platformsCob.DataSource = pfs;
       platformsCob.SelectedItem = RegistryPlatform.WOW64_WOW32;
+    }
+
+    private void pickGuidsFileBtn_Click(object sender, EventArgs e)
+    {
+      OpenFileDialog openFileDialog1 = new OpenFileDialog
+      {
+        InitialDirectory = @"./",
+        Title = "Browse GUIDs file",
+
+        CheckFileExists = true,
+        CheckPathExists = true,
+
+        DefaultExt = "txt",
+        Filter = "txt files (*.txt)|*.txt",
+        FilterIndex = 2,
+        RestoreDirectory = true,
+
+        ReadOnlyChecked = true,
+        ShowReadOnly = true
+      };
+
+      if (openFileDialog1.ShowDialog() == DialogResult.OK)
+      {
+        guidsFileTxt.Text = openFileDialog1.FileName;
+      }
     }
   }
 }
